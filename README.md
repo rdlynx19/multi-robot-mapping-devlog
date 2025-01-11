@@ -1,6 +1,6 @@
 # MultiRobotMappingDevLog
 
-This DevLog documents the progress of the project [MultiRobotMapping]().
+This DevLog documents the progress of the project [MultiRobotMapping](https://github.com/rdlynx19/MultiRobotMapping).
 
 ### Week 1: 1/6 - 1/10
 - Finished setting up Docker container for ROS2 Humble + Intel Realsense SDK + RTAB Map package
