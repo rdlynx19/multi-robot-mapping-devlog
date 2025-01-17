@@ -9,3 +9,8 @@ This DevLog documents the progress of the project [MultiRobotMapping](https://gi
 - Designed and 3D printed landing gear and Realsense camera mount using Onshape
 - Set up and debugged Docker container for ROS2 Humble + PX4 Autopilot
 
+### Week 2: 1/13 - 1/17
+- Set up mount for Raspberry Pi on quadrotor
+- Tested manual flight mode on quadrotor
+- Split battery between RPi and quadrotor
+- Setup serial communication between RPi and PX4
