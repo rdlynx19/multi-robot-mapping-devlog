@@ -61,3 +61,5 @@ Generating a valid map with the quadrotor by manually exploring the environment
     - This was confirmed and verified using this tcp tunneling package: https://github.com/norlab-ulaval/ros2_tcp_tunnel. However, this package only supports Humble and ROS2 does not support cross platform communication, which forced me to use a docker container again.
     - Other packages seemed to work well with Jazzy, so I figured out a new middleware which was supported in ROS2 Jazzy, which is [zenoh](https://github.com/norlab-ulaval/ros2_tcp_tunnel)
     - I tested this by launching the Oak camera node on RPi 5, and visualising it in RViz in System76
+
+### Week 4: 1/27 - 1/31
