@@ -63,3 +63,14 @@ Generating a valid map with the quadrotor by manually exploring the environment
     - I tested this by launching the Oak camera node on RPi 5, and visualising it in RViz in System76
 
 ### Week 4: 1/27 - 1/31
+- Wrote custom node for offboard control based on the offboard example. Added addtional service calls to arm and disarm the drone
+- Solved the lag when using RPi with SSH while being powered by the LiPo battery.
+  - The RPi 5 communicates with its power source to determine if its capable of supplying 5V/5A. If it is convinced the source can supply 5V/5A, it boots into standard mode, otherwise it will boot into low power mode. This makes it super slow.
+  - The solution to this problem was found on this [page](https://pichondria.com/usb-pd-2-0-3-0-to-5v-5a-converter-for-raspberrypi-5-tutorial/), which suggested to edit the `rpi-eeprom-config` and tell the firmware to skip power delivery negotiation.
+- Tested autonomous takeoff and trajectory setpoint
+    - Before solving the RPi power issue, with multiple reboots, I was able to access one session when the RPi booted into standard mode
+    - I conducted two runs each involving: arming the drone, takeoff to a height of around 1m, and land by manually switching mode on RC transmitter
+    - In the first run, the drone armed fine, took off to a perfect estimate of around 1m, and when I switched mode on RC stick, softly landed on its own.
+    - In the second run, the drone armed fine, struggled to take off and drifted away from its original position, took off, tried to adjust to reach the setpoint position, but due to safety concerns I had to manually trigger the kill switch, which caused it to crash immediately.
+    - No critical damage was observed, except broken landing gear.
+- Update: As of 1/31, I have observed QGC throwing the error: `Crash Dumps present on SD Card`. After digging deep into this, I found out the crash caused a hard fault in the Pixhawk and will need a manually debugging using a physical adapter and an in-circuit debugger.
