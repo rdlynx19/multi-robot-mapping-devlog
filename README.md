@@ -74,3 +74,14 @@ Generating a valid map with the quadrotor by manually exploring the environment
     - In the second run, the drone armed fine, struggled to take off and drifted away from its original position, took off, tried to adjust to reach the setpoint position, but due to safety concerns I had to manually trigger the kill switch, which caused it to crash immediately.
     - No critical damage was observed, except broken landing gear.
 - Update: As of 1/31, I have observed QGC throwing the error: `Crash Dumps present on SD Card`. After digging deep into this, I found out the crash caused a hard fault in the Pixhawk and will need a manually debugging using a physical adapter and an in-circuit debugger.
+
+### Week 5: 2/3 - 2/7
+- Solved rtabmap issue, which caused `/rgbd_image` topic to not show up on System76
+    - rtabmap needs camera data at atleast 10Hz to start the odometry and mapping nodes, this is not possible if you plan to transport the entire image data over the network
+    - The solution to this problem is to transport the compressed image topics over the network and then possibly decompress them on the laptop
+    - Another useful improvement is to use a topic relay, which eliminates multiple subscription copies, and creates a single subscription for all the nodes
+    - And finally, switching to a different router with less traffic, greatly improved the data transmission
+    - After implementing all these fixes, I was able to successfully receive camera data from the RPi to the System 76
+- Tested out example runs of handheld, Go1 and Go2 mounted mapping using manual control modes
+- Experimented with map merging, by using rtabmap's default processing two merge two recorded databases
+- Setup prelimnary RViz to visualise octo and binary occupancy grid
