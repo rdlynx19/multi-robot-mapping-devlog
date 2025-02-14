@@ -85,3 +85,13 @@ Generating a valid map with the quadrotor by manually exploring the environment
 - Tested out example runs of handheld, Go1 and Go2 mounted mapping using manual control modes
 - Experimented with map merging, by using rtabmap's default processing two merge two recorded databases
 - Setup prelimnary RViz to visualise octo and binary occupancy grid
+
+### Week 6: 2/10 - 2/14
+- Wrote a ROS2 C++ package for autonomous drone flight. Package consists of services for arming, disarming, takeoff, landing and triggering a square trajectory.
+- Tested the control package in Gazebo simulation and deployed it on quadrotor using OptiTrack position estimate.
+- Encountered and resolved DDS conflicts between quadrotor control and rtabmap-mapping packages
+    - ROS2 serial communication between a companion computer and the PX4 can only support one of the default installations of the DDS middleware (preferably fastrtps). 
+    - The mapping package, however is using rmw_zenoh as a DDS to prevent camera data loss for transmission. This cannot be used for quadrotor control because rmw_zenoh requires routers to be enabled on both communicating devices. There is no straightforward way of starting a router on the PX4.
+    - A solution to this problem is to use a docker container on the RaspberryPi. The quadrotor control package then runs inside the docker, using fastrtps and is able to communicate with the PX4 without any issues.
+    - The rtabmap-mapping package runs outside the docker container, and is also successfully able to communicate with the remote computer (System76), although not reliably yet.
+- Tested the launch sequence of the mapping and control packages, and encountered unusual yaw errors. [UnstableFlight](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/yawFail.mp4) [StableFlight](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/stableSquare.mp4)
