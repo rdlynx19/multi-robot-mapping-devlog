@@ -95,3 +95,17 @@ Generating a valid map with the quadrotor by manually exploring the environment
     - A solution to this problem is to use a docker container on the RaspberryPi. The quadrotor control package then runs inside the docker, using fastrtps and is able to communicate with the PX4 without any issues.
     - The rtabmap-mapping package runs outside the docker container, and is also successfully able to communicate with the remote computer (System76), although not reliably yet.
 - Tested the launch sequence of the mapping and control packages, and encountered unusual yaw errors. [UnstableFlight](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/yawFail.mp4) [StableFlight](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/stableSquare.mp4)
+
+### Week 7: 2/17 - 2/21
+- Fixed tf from camera base link to imu frame.
+    - All the previous mapping runs, done using rtabmap, had alignment issues with the imu frames, causing the 2D projections of the map to be noisy (almost all grids were predicted to be occupied)
+    - After trying out a bunch of different fixes (adding a static transform to the tf tree, trying to reorient the map frame), a fix was found
+    - The solution is to modify the camera urdf file, and add it to the mapping workspace. Using this, we can ask all the launch files to use the modified urdf instead of the default one
+    - Sample results using handheld mapping: [occGrid](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/occGrid.png)
+- Narrowed down the issue of sudden yaw movement in the drone to two possible causes: Magnetometer interference or Power Issue
+    - Power Issue does not seem to be the problem according to me, since the battery is capable enough to discharge a high amount of current per second
+    - Checked flight logs from erroneous flights, asked DeepSeek to analyze them
+    - DeepSeek suggests that the first incorrect yaw message arises from the internal flight controller, and the magnetometer value also shows a lot of noise. This indicates the trajectory setpoints being sent are correct, but the camera turning on is causing electro-magnetic interference.
+- Trying out new mounts for Oak + Raspberry Pi on the Unitree Go1
+      - The mapping launch files seem to be platfrom agnostic, so they can be used on both the robots
+      - The previous mount was too compact, causing the Raspberry Pi to heat up, so I've printed out a new version of the mount with which I can use vibration damping balls
