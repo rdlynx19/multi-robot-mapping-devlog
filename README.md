@@ -109,3 +109,12 @@ Generating a valid map with the quadrotor by manually exploring the environment
 - Trying out new mounts for Oak + Raspberry Pi on the Unitree Go1
       - The mapping launch files seem to be platfrom agnostic, so they can be used on both the robots
       - The previous mount was too compact, causing the Raspberry Pi to heat up, so I've printed out a new version of the mount with which I can use vibration damping balls
+
+### Week 8: 2/24 - 2/28
+- Finished designing and testing mount for RPi and Oak on Go1
+    - The mount seems to more sturdier than before, and I am using rubber mounts to reduce any vibrations that are transmitted by the dog
+- Recorded map on Go1, with manual exploration using joystick. 
+    - Vibrations seen on the camera IMU, do not seem to affect the occupancy grid map [dogMap](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/dogPointCloud.png)
+    - Fused quadrotor and quadruped map, to get more detailed point cloud, and better occupancy grid
+- Integrated yaw motion in quadrotor trajectory, to demonstrate circular mapping motion.
+    - [Yaw Trajectory](https://github.com/rdlynx19/multi-robot-mapping/issues/2)
