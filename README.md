@@ -118,3 +118,16 @@ Generating a valid map with the quadrotor by manually exploring the environment
     - Fused quadrotor and quadruped map, to get more detailed point cloud, and better occupancy grid
 - Integrated yaw motion in quadrotor trajectory, to demonstrate circular mapping motion.
     - [Yaw Trajectory](https://github.com/rdlynx19/multi-robot-mapping/issues/2)
+
+### Week 9: 3/3 - 3/7
+- Replaced 1950KV drone motors with 2050KV motors for stronger thrust
+    - This was to check if the payload constraint was causing the drone to yaw erratically
+    - Suprisingly, the RPi was able to run both the control and mapping nodes simulataenously for a few flights after this change
+    - The yaw error still occured but the drone was able to recover without losing track of its orientation
+- Shot videos of the entire demonstration: drone mapping the environment, adding more obstacles, and then dog mapping the environment
+    - Instead of recording the maps on the robots separately and then merging them during post processing, I used the drone's map as a starting point for the dog
+    - As soon as the mapping nodes are initialised on the dog, the dog finds a localization anchor in the enviroment, and then starts adding more details to the map
+    - Here is the Drone Point Cloud [DronePC](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/DronePointCloud.png) and the Dog Point Cloud [DogPC](https://github.com/rdlynx19/MultiRobotMapping/blob/main/images/CombinedDroneDogPointCloud.png)
+- Wrote a frontier exploration algorithm for the dog, to autonomously explore the environment
+    - The algorithm outputs a goal pose for the dog, which needs to be transformed into velocity commands that the dog can follow
+    - So far, I have not been able to connect to the dog, to use the high level control
