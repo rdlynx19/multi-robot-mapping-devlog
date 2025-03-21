@@ -131,3 +131,7 @@ Generating a valid map with the quadrotor by manually exploring the environment
 - Wrote a frontier exploration algorithm for the dog, to autonomously explore the environment
     - The algorithm outputs a goal pose for the dog, which needs to be transformed into velocity commands that the dog can follow
     - So far, I have not been able to connect to the dog, to use the high level control
+
+### Week 10: 3/10 - 3/14
+- Edited video and made portfolio post about the project
+- Updated instructions on README files
